@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hussir.micromall.dao.SoldGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.hussir.micromall.model.SoldGoods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="sum_price" property="sumPrice" jdbcType="DOUBLE" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, goods_id, title, price, picture, summary, description, quantity, sum_price, order_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sold_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sold_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hussir.micromall.model.SoldGoods" >
+    insert into sold_goods (id, goods_id, title, 
+      price, picture, summary, 
+      description, quantity, sum_price, 
+      order_id)
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{picture,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{quantity,jdbcType=INTEGER}, #{sumPrice,jdbcType=DOUBLE}, 
+      #{orderId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hussir.micromall.model.SoldGoods" >
+    insert into sold_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="picture != null" >
+        picture,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="sumPrice != null" >
+        sum_price,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="picture != null" >
+        #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="sumPrice != null" >
+        #{sumPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hussir.micromall.model.SoldGoods" >
+    update sold_goods
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="picture != null" >
+        picture = #{picture,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="sumPrice != null" >
+        sum_price = #{sumPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hussir.micromall.model.SoldGoods" >
+    update sold_goods
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      picture = #{picture,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=INTEGER},
+      sum_price = #{sumPrice,jdbcType=DOUBLE},
+      order_id = #{orderId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!-- Write By Hussir. -->
+  <select id="selectSoldGoodsIdListByBuyerId" parameterType="java.lang.Integer" resultType="java.lang.Integer" >
+    SELECT goods_id
+    FROM sold_goods, `order`
+    WHERE `order`.id = sold_goods.order_id
+      AND `order`.buyer_id = #{buyerId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectListByBuyerId" parameterType="java.lang.Integer" resultType="com.hussir.micromall.model.SoldGoods" >
+    SELECT
+      sold_goods.id id, goods_id, title, price, picture, summary, description, quantity, sum_price, order_id
+    FROM sold_goods, `order`
+    WHERE `order`.id = sold_goods.order_id
+	  AND `order`.buyer_id = #{buyerId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByOrderId" parameterType="java.lang.Integer" resultType="com.hussir.micromall.model.SoldGoods" >
+    SELECT *
+    FROM sold_goods
+    WHERE order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+</mapper>
