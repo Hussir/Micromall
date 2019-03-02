@@ -49,12 +49,24 @@
                         </div>
                         <a href="${pageContext.request.contextPath}/goods/edit.page?goodsId=${goods.id}">
                             <input style="background: url('${pageContext.request.contextPath}/img/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
-                                   value="商品编辑" type="button">
+                                   value="商品编辑" type="button" />
                         </a>
+                        <c:if test="${soldQuantity <= 0}">
+                            <a href="${pageContext.request.contextPath}/goods/remove?goodsId=${goods.id}">
+                                <input style="background: url('${pageContext.request.contextPath}/img/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"
+                                       value="商品删除" type="button">
+                            </a>
+                        </c:if>
+                        <c:if test="${soldQuantity > 0}">
+                            <%--<label><input disabled style="no-repeat; scroll 0 -600px rgba(169,161,161,1);height:36px;width:127px;"
+                            value="商品删除" type="button"></label>--%>
+                            <label><input disabled style="background: no-repeat scroll 0 -600px rgba(169,161,161,1);height:36px;width:127px;"
+                                          value="商品删除" type="button"></label>
+                        </c:if>
                     </c:if>
                     <c:if test="${sessionScope.seller == null}">
                         <div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;">购买数量:
-                            <input id="quantity" name="quantity" value="1" maxlength="4" size="10" type="text">
+                            <label><input id="quantity" name="quantity" value="1" maxlength="4" size="10" type="text"></label>
                         </div>
                         <div style="margin:20px 0 10px 0;;text-align: center;">
                             <input style="background: url('${pageContext.request.contextPath}/img/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"

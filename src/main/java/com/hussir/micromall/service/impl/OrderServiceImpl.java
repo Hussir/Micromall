@@ -113,6 +113,53 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
+    public void batchGenerateOrder(Integer[] cartItemIds, Integer[] goodsIds, Integer[] quantities, Integer buyerId) {
+
+        int orderSize = cartItemIds.length;
+
+        Order order = new Order();
+
+        order.setBuyerId(buyerId);
+        order.setOrderTime(new Date());
+
+        double amount = 0;
+        for (int i = 0; i < orderSize; i++) {
+            amount += (quantities[i] * goodsService.getPriceById(goodsIds[i]));
+        }
+        order.setAmount(amount);
+
+        addOrder(order);
+
+        int orderId = order.getId();
+
+        for (int i = 0; i < orderSize; i++) {
+
+            double goodsPrice = goodsService.getPriceById(goodsIds[i]);
+
+            Goods goods = goodsService.getGoodsById(goodsIds[i]);
+
+            SoldGoods soldGoods = new SoldGoods();
+            soldGoods.setGoodsId(goodsIds[i]);
+            soldGoods.setOrderId(orderId);
+            soldGoods.setTitle(goods.getTitle());
+            soldGoods.setSummary(goods.getSummary());
+            soldGoods.setPrice(goodsPrice);
+            soldGoods.setPicture(goods.getPicture());
+            soldGoods.setDescription(goods.getDescription());
+            soldGoods.setQuantity(quantities[i]);
+            soldGoods.setSumPrice(goodsPrice * quantities[i]);
+
+            soldGoodsService.addSoldGoods(soldGoods);
+
+            cartItemService.deleteById(cartItemIds[i]);
+
+            goods.setQuantitySold((goods.getQuantitySold() == null ? 0 : goods.getQuantitySold()) + quantities[i]);
+            goodsService.updateGoods(goods);
+        }
+    }
+
+    @Override
     public void addOrder(Order order) {
         orderMapper.insertSelective(order);
     }

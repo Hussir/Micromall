@@ -13,4 +13,8 @@ public interface ResponseCode {
     int COMMON_FAILED_CODE = 105;
 
     int COMMON_SUCCESS_CODE = 106;
+
+    int ORDER_SUCCESS_CODE = 107;
+
+    int ORDER_FAILED_CODE = 108;
 }

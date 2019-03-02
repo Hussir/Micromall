@@ -22,4 +22,6 @@ public interface GoodsService {
     Integer getSoldQuantityById(Integer goodsId);
 
     List<Goods> getSoldGoodsBySellerId(Integer sellerId);
+
+    void remove(Integer goodsId);
 }

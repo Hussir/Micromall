@@ -9,6 +9,15 @@ public class CartItem {
 
     private Integer buyerId;
 
+    public CartItem() {
+    }
+
+    public CartItem(Integer id, Integer goodsId, Integer quantity) {
+        this.id = id;
+        this.goodsId = goodsId;
+        this.quantity = quantity;
+    }
+
     public Integer getId() {
         return id;
     }

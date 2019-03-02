@@ -82,4 +82,9 @@ public class GoodsServiceImpl implements GoodsService {
     public List<Goods> getSoldGoodsBySellerId(Integer sellerId) {
         return goodsMapper.selectSoldGoodsBySellerId(sellerId);
     }
+
+    @Override
+    public void remove(Integer goodsId) {
+        goodsMapper.deleteByPrimaryKey(goodsId);
+    }
 }

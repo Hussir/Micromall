@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,6 +43,24 @@ public class GoodsController {
     @Value("${ImgServerDir}")
     private String realPath;
 
+    @RequestMapping("/remove")
+    public String removeGoods(HttpServletRequest request, @RequestParam("goodsId") Integer goodsId) {
+
+        Seller seller = (Seller) request.getSession().getAttribute("seller");
+
+        if (seller == null || seller.getId() == null) {
+            throw new PermissionException(ExceptionMsg.ILLEGAL_ACCESS_EXCEPTION);
+        }
+
+        if (goodsId == null) {
+            throw new ParamException(ExceptionMsg.ILLEGAL_PARAMETER_EXCEPTION);
+        }
+
+        goodsService.remove(goodsId);
+
+        return "redirect:/goods/list.page";
+    }
+
     @RequestMapping("/bought/list.page")
     public String showBoughtGoodsListPage(HttpServletRequest request, Model model) {
 
@@ -53,9 +72,11 @@ public class GoodsController {
 
         List<Integer> soldGoodsIdList = soldGoodsService.getSoldGoodsIdListByBuyerId(buyer.getId());
 
+        HashSet<Integer> noRepeatGoodsIdSet = new HashSet<>(soldGoodsIdList);
+
         List<Goods> goodsList = new ArrayList<>();
 
-        for (Integer goodsId : soldGoodsIdList) {
+        for (Integer goodsId : noRepeatGoodsIdSet) {
             Goods goods = goodsService.getGoodsById(goodsId);
             goods.setFlag(1);
             goodsList.add(goods);

@@ -15,4 +15,8 @@ public interface ResponseMsg {
     String COMMON_SUCCESS_MESSAGE = "请求成功";
 
     String COMMON_FAILED_MESSAGE = "请求失败";
+
+    String ORDER_SUCCESS_MESSAGE= "下单成功";
+
+    String ORDER_FAILED_MESSAGE = "下单失败";
 }

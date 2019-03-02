@@ -14,7 +14,11 @@ public interface OrderService {
 
     Double getOrderTotalAmountByBuyerId(Integer buyerId);
 
+    //选中一件商品是下单
     void generateOrder(CartItem cartItem, Integer buyerId);
+
+    //批量下单
+    void batchGenerateOrder(Integer[] cartItemIds, Integer[] goodsIds, Integer[] quantities, Integer buyerId);
 
     void addOrder(Order order);
 }

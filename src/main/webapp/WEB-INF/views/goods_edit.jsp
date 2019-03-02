@@ -43,8 +43,8 @@
             <div class="fmitem">
                 <label class="fmlab">图片：</label>
                 <div class="fmipt" id="uploadType">
-                    <input name="pic" type="radio" value="url" checked=""> 图片地址
-                    <input name="pic" type="radio" value="file"> 本地上传
+                    <label><input name="pic" type="radio" value="url" checked=""> 图片地址</label>
+                    <label><input name="pic" type="radio" value="file"> 本地上传</label>
                 </div>
             </div>
             <div class="fmitem">
@@ -67,7 +67,7 @@
             <div class="fmitem">
                 <label class="fmlab">价格：</label>
                 <div class="fmipt">
-                    <input class="u-ipt price" value="${goods.price}" name="price">元
+                    <label><input class="u-ipt price" value="${goods.price}" name="price">元</label>
                 </div>
             </div>
             <div class="fmitem fmitem-nolab fmitem-btn">
