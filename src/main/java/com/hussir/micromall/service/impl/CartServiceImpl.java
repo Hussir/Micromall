@@ -11,6 +11,7 @@ import com.hussir.micromall.view.CartItemVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +89,9 @@ public class CartServiceImpl implements CartService {
             Double price = goodsService.getPriceById(cartItem.getGoodsId());
             totalAmount += (price * cartItem.getQuantity());
         }
+
+        BigDecimal tempAmount = new BigDecimal(totalAmount);
+        totalAmount = tempAmount.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
         return totalAmount;
     }

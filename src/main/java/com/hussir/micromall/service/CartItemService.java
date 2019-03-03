@@ -15,7 +15,7 @@ public interface CartItemService {
 
     CartItem getByGoodsIdAndBuyerId(Integer goodsId, Integer buyerId);
 
-    void deleteAllByBuyerId(Integer buyerId);//TODO
+    void deleteAllByBuyerId(Integer buyerId);
 
     void deleteById(Integer cartItemId);
 

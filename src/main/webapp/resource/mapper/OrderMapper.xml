@@ -91,5 +91,6 @@
     SELECT *
     FROM `order`
     WHERE buyer_id = #{buyerId,jdbcType=INTEGER}
+    ORDER BY order_time DESC
   </select>
 </mapper>

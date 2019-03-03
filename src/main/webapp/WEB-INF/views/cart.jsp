@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!doctype html>
 <html>
 
@@ -37,6 +38,22 @@
 		<div class="container">
 			<c:if test="${empty cartItemVOList}">
 				<h1>购物车空空如也~~赶紧逛逛去!!</h1>
+				<div style="margin-right:130px;">
+					<div style="text-align:right;margin-top:10px;margin-bottom:10px;">
+						<c:if test="${!fn:contains(refererURL,'/cart/list.page')}" >
+							<a href="${refererURL}">
+								<input type="submit" width="100" value="退出购物车" border="0" style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+										height:35px;width:100px;color:white;">
+							</a>
+						</c:if>
+						<c:if test="${fn:contains(refererURL,'/cart/list.page')}" >
+							<a href="${pageContext.request.contextPath}/index.jsp">
+								<input type="submit" width="100" value="退出购物车" border="0" style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+										height:35px;width:100px;color:white;">
+							</a>
+						</c:if>
+					</div>
+				</div>
 			</c:if>
 			<c:if test="${not empty cartItemVOList}">
 				<div class="row">
@@ -105,8 +122,20 @@
 							</a>
 						--%>
 						<a href="${pageContext.request.contextPath }/cart/clear" id="clear" class="clear">清空购物车</a>
+							<c:if test="${!fn:contains(refererURL,'/cart/list.page')}" >
+								<a href="${refererURL}">
+									<input type="submit" width="100" value="退出购物车" border="0" style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+											height:35px;width:100px;color:white;">
+								</a>
+							</c:if>
+							<c:if test="${fn:contains(refererURL,'/cart/list.page')}" >
+								<a href="${pageContext.request.contextPath}/index.jsp">
+									<input type="submit" width="100" value="退出购物车" border="0" style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+											height:35px;width:100px;color:white;">
+								</a>
+							</c:if>
 						<input type="submit" width="100" value="提交订单" name="submit" border="0" style="background: url('${pageContext.request.contextPath}/img/register.gif') no-repeat scroll 0 0 rgba(0, 0, 0, 0);
-								height:35px;width:100px;color:white;" onclick="batchOrder()">
+							height:35px;width:100px;color:white;" onclick="batchOrder()">
 					</div>
 				</div>
 			</c:if>

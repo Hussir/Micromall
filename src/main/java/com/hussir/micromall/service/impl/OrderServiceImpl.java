@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,6 +68,9 @@ public class OrderServiceImpl implements OrderService {
         for (Order order : orderList) {
             totalAmount += order.getAmount();
         }
+
+        BigDecimal tempAmount = new BigDecimal(totalAmount);
+        totalAmount = tempAmount.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
         return totalAmount;
     }

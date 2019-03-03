@@ -66,7 +66,7 @@
                     </c:if>
                     <c:if test="${sessionScope.seller == null}">
                         <div style="border-bottom: 1px solid #faeac7;margin-top:20px;padding-left: 10px;">购买数量:
-                            <label><input id="quantity" name="quantity" value="1" maxlength="4" size="10" type="text"></label>
+                            <label><input type="text" onkeyup="if(this.value.length===1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" id="quantity" name="quantity" value="1" maxlength="4" size="10" ></label>
                         </div>
                         <div style="margin:20px 0 10px 0;;text-align: center;">
                             <input style="background: url('${pageContext.request.contextPath}/img/product.gif') no-repeat scroll 0 -600px rgba(0, 0, 0, 0);height:36px;width:127px;"

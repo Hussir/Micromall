@@ -7,10 +7,10 @@ import com.hussir.micromall.exception.PermissionException;
 import com.hussir.micromall.model.Buyer;
 import com.hussir.micromall.service.CartService;
 import com.hussir.micromall.view.CartItemVO;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +24,7 @@ public class CartController {
     private CartService cartService;
 
     @RequestMapping("/remove")
-    public String removeFromCart(@Param("id") Integer cartItemId, HttpServletRequest request) {
+    public String removeFromCart(@RequestParam("id") Integer cartItemId, HttpServletRequest request) {
 
         Buyer buyer = (Buyer) request.getSession().getAttribute("buyer");
 
@@ -83,6 +83,8 @@ public class CartController {
 
         Buyer buyer = (Buyer) request.getSession().getAttribute("buyer");
 
+        String refererURL = request.getHeader("REFERER");
+
         if (buyer == null || buyer.getId() == null) {
             throw new PermissionException(ExceptionMsg.ILLEGAL_ACCESS_EXCEPTION);
         }
@@ -93,6 +95,7 @@ public class CartController {
 
         model.addAttribute("cartItemVOList", cartItemVOList);
         model.addAttribute("totalAmount", totalAmount);
+        model.addAttribute("refererURL", refererURL);
 
         return "cart";
     }

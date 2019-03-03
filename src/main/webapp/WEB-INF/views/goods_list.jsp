@@ -25,7 +25,7 @@
 
     <div class="row n-plist" style="width:1200px;margin:0 auto;">
         <c:forEach	items="${goodsList }" var="goods">
-            <div class="col-md-3">
+            <div class="col-md-3" style="display: table-cell;text-align: center;vertical-align: middle">
                 <a href="${pageContext.request.contextPath}/goods/info.page?goodsId=${goods.id}">
                     <img src="${goods.picture}" width="200" height="240" style="display: inline-block;" />
                     <c:if test="${goods.flag == 1}" >
