@@ -31,13 +31,13 @@
                 <label class="fmlab">标题：</label>
                 <div class="fmipt">
                     <input type="hidden" name="id" value="${goods.id}">
-                    <input class="u-ipt ipt" name="title" autofocus="" value="${goods.title}" placeholder="2-80字符">
+                    <input class="u-ipt ipt" name="title" autofocus="" value="${goods.title}" placeholder="2-80字符" minlength="2" maxlength="80">
                 </div>
             </div>
             <div class="fmitem">
                 <label class="fmlab">摘要：</label>
                 <div class="fmipt">
-                    <input class="u-ipt ipt" name="summary" value="${goods.summary}" placeholder="2-140字符">
+                    <input class="u-ipt ipt" name="summary" value="${goods.summary}" placeholder="2-140字符" minlength="2" maxlength="140">
                 </div>
             </div>
             <div class="fmitem">
@@ -50,7 +50,7 @@
             <div class="fmitem">
                 <label class="fmlab"></label>
                 <div class="fmipt" id="urlUpload">
-                    <input class="u-ipt ipt" name="picture" value="${goods.picture}" placeholder="图片地址">
+                    <input class="u-ipt ipt" name="picture" value="${goods.picture}" placeholder="图片地址" maxlength="255">
                 </div>
                 <div class="fmipt" id="fileUpload" style="display:none">
                     <input class="u-ipt ipt" name="file" type="file" id="fileUp">
@@ -61,13 +61,13 @@
                 <label class="fmlab">正文：</label>
                 <div class="fmipt">
                     <textarea class="u-ipt" name="description" rows="10"
-                              placeholder="2-1000个字符">${goods.description}</textarea>
+                              placeholder="2-1000个字符" maxlength="1000">${goods.description}</textarea>
                 </div>
             </div>
             <div class="fmitem">
                 <label class="fmlab">价格：</label>
                 <div class="fmipt">
-                    <label><input class="u-ipt price" value="${goods.price}" name="price">元</label>
+                    <label><input class="u-ipt price" value="${goods.price}" name="price" onblur="if(! /^\d+\.?\d{1,2}$/.test(this.value)){alert('只能输入数字，小数点后只能保留两位');this.value='';}">元</label>
                 </div>
             </div>
             <div class="fmitem fmitem-nolab fmitem-btn">
